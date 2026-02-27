@@ -2,14 +2,22 @@
 
 ## Table of Contents
 
-## Requirements Analysis and Definition
+## Introduction
 
-## Conceptual Design Model
+## Database Design
 
-## Data Model Mapping
+### Requirements Analysis and Definition
 
-## Normalization
+### Conceptual Design Model
 
-## Database Implementation and Operation
+### Data Model Mapping
 
-### Setup
+### Normalization
+
+### Database Implementation and Operation
+
+## Discussion
+
+## Conclusion
+
+## References
