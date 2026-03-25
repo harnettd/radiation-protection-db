@@ -69,9 +69,14 @@
         - urine bioassay
     - other
         - swipes
-- Workers have IDs and names. Some workers are radiation technicians. Some workers are managers. Most workers are neither.
-- Locations have geographies, buildings, departments and/or floors.
-- Area monitoring is handled through surveys that are created by managers. A survey comprises one or more samples, each taken at a particular location on a particular date. Each sample is obtained using one of more pieces of equipment. A radiation technician collects each sample, calclulates a corresponding exposure (C/kg?) or activity or concentration (Bq/m3) or dose rate(?), and enters the result into the database.
+
+- Each worker has the following attributes: ID, name, social insurance number (SIN), phone number, and email address. Also, each worker belongs to precisely one job category characterized by a job code, a title (**e.g.,** miner, radiation technician, or radiation safety officer (RSO)), and a job description. There are zero or more workers per job.
+- There are one or more mining sites. Each mining site comprises zero or more buildings. Each building comprises one or more zones. Mining sites are characterized by an ID, a name, a description, a location (*i.e.,* latitude and longitude), a region (*e.g.,* Saskatchewan), and a country (*e.g.,* Canada). Buildings are characterized by an ID, a number (starting at 1 for each site), a name, and a description. Zones are characterized by an ID, a number (starting at 1 for each building), and a description.
+- Many pieces of equipment are used in radiation safety at uranium mines. Data that needs to be tracked for each piece of equipment are a serial number, a make, a model, a status (**i.e.,** ready, deployed, out of service, or retired), a last-calibration date, and a next-calibration date. Also, each piece of equipment belongs to precisely one category, and each category contains zero or more pieces of equipment. Each equipment category has a code, a description (**e.g.,** air pump, counter, gamma meter, optically-stimulated luminescent dosimeter (OSLD), personal alpha dosimeter (PAD), or direct-reading dosimeter (DRD)), and a recommended calibration frequency (in days).
+- Once used in the field, certain types of equipment (namely OSLDs and PADs) need to be shipped to an external lab for analysis. A lab is characterized by an ID, a name, a shipping address, a phone number, and an email address.
+
+- Radiation monitoring is done for both areas and persons through the collection and analysis of samples. All samples, whether area samples or person samples, are sampled using one or more pieces of equipment. Each piece of equipment can be used multiple times to take many samples.
+- Area samples are identified by an ID and have starting and ending timestamps identifying the time interval over which the sample was taken. Area samples are sampled in a zone by a radiation technician or an RSO and must be approved by an RSO. An area sample may be declared void; in such cases, a reason should be provided. Critically, an area sample has a type with a corresponding type-dependent result. Three types of area samples are considered here. The first type is RnG, **i.e.,** radon gas. For RnG, the result represents radon gas concentration in Becquerel (Bq) per cubic metre. (Note that 1 Bq corresponds to 1 radioactive decay per second.) The second type is RnP, **i.e.,** radon progeny. For RnP, the result represents concentration of radon progeny in working levels (WL). (Note that 1 WL corresponds to the number of radon progeny in 1 cubic metre that ultimately leads to a total alpha-particle energy of 1.3e5 MeV.) The third type is gamma. For gamma, the result represents dose rate in milllisieverts (mSv) per hour. (Note that 1 Sv corresponds to the absorption in human tissue of 1 J/kg from radiation weighted by radiation type and is a measure of expected biological damage.) 
 - Each day, workers submit timecards indicating their SEG(?), which locations they worked in, and how long they spent in each location. Timecards must be approved by a manager. The timecards together with survey results allow for daily RnP/RnG/LLRD/gamma equivalent doses (in mSv) to be calculated for each worker.
 - All/most equipment requires regular calibration.
 - RnP monitoring equipment consists of an air sample pump, a calibrator, and a TRIMET. Each TRIMET has a calculated efficiency and chi-squared.
@@ -94,6 +99,13 @@
 - create cumulative monthly, quarterly, annual RnP doses for each worker
 
 ## Discussion
+
+Future improvements:
+- equipment calibration logs
+- lab shipping logs
+- timecards
+- worker promotions, **i.e.,** changes in job title
+- workers sometimes lose their dosimeters
 
 ## Conclusion
 
