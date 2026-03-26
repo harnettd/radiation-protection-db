@@ -49,42 +49,21 @@
 
 ### Requirements Analysis and Definition
 
-- There are several types of measurements (monitoring, dosimetry, urine bioassay):
-    - area monitoring:
-        - radon progeny (RnP)
-        - radon gas (RnG)
-            - **focus on active**
-        - long-lived radioactive dust (LLRD)
-            - U-238, U-234, Th-230, Ra-226, Po-210
-            - alpha emitters
-        - gamma
-    - individual monitoring:
-        - personal long-lived radioactive dust (LLRD)
-        - OSLD (Optically Stimulated Luminescent Dosimeter)
-            - measures dose from gamma rays
-        - DRD (direct reading dosimeter)
-            - OSLD preferred
-        - personal alpha dosimeter (PAD)
-            - alphas come from radon progeny and LLRD
-        - urine bioassay
-    - other
-        - swipes
-
 - Each worker has the following attributes: ID, name, social insurance number (SIN), phone number, and email address. Also, each worker belongs to precisely one job category characterized by a job code, a title (**e.g.,** miner, radiation technician, or radiation safety officer (RSO)), and a job description. There are zero or more workers per job.
 - There are one or more mining sites. Each mining site comprises zero or more buildings. Each building comprises one or more zones. Mining sites are characterized by an ID, a name, a description, a location (*i.e.,* latitude and longitude), a region (*e.g.,* Saskatchewan), and a country (*e.g.,* Canada). Buildings are characterized by an ID, a number (starting at 1 for each site), a name, and a description. Zones are characterized by an ID, a number (starting at 1 for each building), and a description.
 - Many pieces of equipment are used in radiation safety at uranium mines. Data that needs to be tracked for each piece of equipment are a serial number, a make, a model, a status (**i.e.,** ready, deployed, out of service, or retired), a last-calibration date, and a next-calibration date. Also, each piece of equipment belongs to precisely one category, and each category contains zero or more pieces of equipment. Each equipment category has a code, a description (**e.g.,** air pump, counter, gamma meter, optically-stimulated luminescent dosimeter (OSLD), personal alpha dosimeter (PAD), or direct-reading dosimeter (DRD)), and a recommended calibration frequency (in days).
 - Once used in the field, certain types of equipment (namely OSLDs and PADs) need to be shipped to an external lab for analysis. A lab is characterized by an ID, a name, a shipping address, a phone number, and an email address.
-
-- Radiation monitoring is done for both areas and persons through the collection and analysis of samples. All samples, whether area samples or person samples, are sampled using one or more pieces of equipment. Each piece of equipment can be used multiple times to take many samples.
-- Area samples are identified by an ID and have starting and ending timestamps identifying the time interval over which the sample was taken. Area samples are sampled in a zone by a radiation technician or an RSO and must be approved by an RSO. An area sample may be declared void; in such cases, a reason should be provided. Critically, an area sample has a type with a corresponding type-dependent result. Three types of area samples are considered here. The first type is RnG, **i.e.,** radon gas. For RnG, the result represents radon gas concentration in Becquerel (Bq) per cubic metre. (Note that 1 Bq corresponds to 1 radioactive decay per second.) The second type is RnP, **i.e.,** radon progeny. For RnP, the result represents concentration of radon progeny in working levels (WL). (Note that 1 WL corresponds to the number of radon progeny in 1 cubic metre that ultimately leads to a total alpha-particle energy of 1.3e5 MeV.) The third type is gamma. For gamma, the result represents dose rate in milllisieverts (mSv) per hour. (Note that 1 Sv corresponds to the absorption in human tissue of 1 J/kg from radiation weighted by radiation type and is a measure of expected biological damage.) 
-- Each day, workers submit timecards indicating their SEG(?), which locations they worked in, and how long they spent in each location. Timecards must be approved by a manager. The timecards together with survey results allow for daily RnP/RnG/LLRD/gamma equivalent doses (in mSv) to be calculated for each worker.
-- All/most equipment requires regular calibration.
-- RnP monitoring equipment consists of an air sample pump, a calibrator, and a TRIMET. Each TRIMET has a calculated efficiency and chi-squared.
-- RnG monitoring equipment consist of an air sample pump, a calibrator, a lucas cell, and an AB7.
-- For each sample, the sample and equipment details are logged. Also, samples have a number, type, jurisdiction, limit type, classification, date 
-- Every quarter, each worker is assigned an OSLD. (This constitutes a survey.) At the end of the quarter, all OSLDs are collected and sent to a lab for processing. Results (in mSv) are added to the database.
-- Each worker is assigned a DRD. Each day, workers add the DRD reading to the database.
-- Every month, each worker is assigned a PAD. PADs have a head and a body (air sampling unit). At the end of the month, all PADs are collected and sent to a lab for processing. Resuts (in mSv) are added to the database.
+- Radiation monitoring is done for both areas and persons through the collection and analysis of samples. All samples, whether area samples or person samples, have a sample number, a start timestamp, and an end timestamp. Also, each sample must be approved by an RSO. Furthermore, a sample can be declared void; if this occurs, a reason should be given. Each sample is sampled using one or more pieces of equipment, and each piece of equipment can be used to take zero or more samples. Each sample belongs to precisely one sample category, and each sample category contains zero or more samples. Each sample category has a code, a name (**i.e.,** area radon gas, area alpha, area gamma, person PAD, person DRD, or person OSLD), and a description.
+- For each sample, there is a result. However, the attributes of a result depend on the sample's category. 
+    - Each area-sample result refers to precisely one zone, and each zone serves as the location for zero or more area-sample results. Each area sample is sampled by a worker who is either a radiation technician or an RSO. Each worker allowed to sample areas does so zero or more times. 
+    - Each person-sample result refers to precisely one worker, and each worker serves as the subject for zero or more person-sample results.
+    - Each result corresponding to person PAD and person OSLD is obtained from an analysis performed at an external lab. Each external lab can perform many analyses.
+    - For area radon gas, results represent radon gas concentration in Becquerel (Bq) per cubic metre. (Note that 1 Bq corresponds to 1 radioactive decay per second.)
+    - For area alpha, results represent alpha-emitter concentration in working level (WL). (Note that 1 WL corresponds to the number of alpha emitters in 1 cubic metre that ultimately leads to a total alpha-particle energy of 1.3e5 MeV.)
+    - For area gamma, results represent equivalent dose in millisieverts (mSv). (Note that sieverts have the same dimensions as J/kg and serve as a measure of expected biological damage from absorbed radiation.)
+    - For person PAD, results represent equivalent dose in mSv.
+    - For person DRD, results represent equivalent dose in microsieverts.
+    - For person OSLD, results represent equivalent dose in mSv.
 
 ### Conceptual Design Model
 
@@ -105,7 +84,7 @@ Future improvements:
 - lab shipping logs
 - timecards
 - worker promotions, **i.e.,** changes in job title
-- workers sometimes lose their dosimeters
+- worker-dosimeter assigning and tracking
 
 ## Conclusion
 
