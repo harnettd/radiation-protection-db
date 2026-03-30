@@ -51,7 +51,7 @@
 
 - Each worker has the following attributes: ID, name, social insurance number (SIN), phone number, and email address. Also, each worker belongs to precisely one job category characterized by a job code, a title (**e.g.,** miner, radiation technician, or radiation safety officer (RSO)), and a job description. There are zero or more workers per job.
 - There are one or more mining sites. Each mining site comprises zero or more buildings. Each building comprises one or more zones. Mining sites are characterized by an ID, a name, a description, a location (*i.e.,* latitude and longitude), a region (*e.g.,* Saskatchewan), and a country (*e.g.,* Canada). Buildings are characterized by an ID, a number (starting at 1 for each site), a name, and a description. Zones are characterized by an ID, a number (starting at 1 for each building), and a description.
-- Many pieces of equipment are used in radiation safety at uranium mines. Data that needs to be tracked for each piece of equipment are a serial number, a make, a model, a status (**i.e.,** ready, deployed, out of service, or retired), a last-calibration date, and a next-calibration date. Also, each piece of equipment belongs to precisely one category, and each category contains zero or more pieces of equipment. Each equipment category has a code, a description (**e.g.,** air pump, counter, gamma meter, optically-stimulated luminescent dosimeter (OSLD), personal alpha dosimeter (PAD), or direct-reading dosimeter (DRD)), and a recommended calibration frequency (in days).
+- Many pieces of equipment are used in radiation safety at uranium mines. Data that needs to be tracked for each piece of equipment are a serial number, a make, a model, a status (**i.e.,** ready, deployed, out of service, or retired), a last-calibration date, and a next-calibration date. Also, each piece of equipment belongs to precisely one category, and each category contains zero or more pieces of equipment. Each equipment category has a code, a name (**e.g.,** air pump, counter, gamma meter, optically-stimulated luminescent dosimeter (OSLD), personal alpha dosimeter (PAD), or direct-reading dosimeter (DRD)), a description, and a recommended calibration frequency (in days).
 - Once used in the field, certain types of equipment (namely OSLDs and PADs) need to be shipped to an external lab for analysis. A lab is characterized by an ID, a name, a shipping address, a phone number, and an email address.
 - Radiation monitoring is done for both areas and persons through the collection and analysis of samples. All samples, whether area samples or person samples, have a sample number, a start timestamp, and an end timestamp. Also, each sample must be approved by an RSO. Furthermore, a sample can be declared void; if this occurs, a reason should be given. Each sample is sampled using one or more pieces of equipment, and each piece of equipment can be used to take zero or more samples. Each sample belongs to precisely one sample category, and each sample category contains zero or more samples. Each sample category has a code, a name (**i.e.,** area radon gas, area alpha, area gamma, person PAD, person DRD, or person OSLD), and a description.
 - For each sample, there is a result. However, the attributes of a result depend on the sample's category. 
@@ -66,6 +66,8 @@
     - For person OSLD, results represent equivalent dose in mSv.
 
 ### Conceptual Design Model
+
+![conceptual design model](./images/erd-1.drawio.png)
 
 ### Data Model Mapping
 
@@ -89,3 +91,6 @@ Future improvements:
 ## Conclusion
 
 ## References
+
+
+[def]: ./images/erd-1.drawio.png
