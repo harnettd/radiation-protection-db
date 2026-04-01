@@ -75,6 +75,15 @@
 
 ### Normalization
 
+From the normalization diagrams shown below,
+it can be seen that all tables except site and lab are BCNF.
+The site and lab tables are 2NF, but not 3NF as both tables contain one or more transitive dependencies. (Explain the decision to stay at 2NF.)
+
+Note that the worker and zone tables each have a primary key (PK) as well as a second candidate key. For the worker table, worker_id is the PK whereas worker_sin (SIN) is an additional candidate key. For the zone table, zone_id is a surrogate PK, helpful for joins that involve this table. The triple (site_num, bldg_num, zone_num) is a (hierarchical) candidate key.
+
+![normalization tables](./images/normalization-1.drawio.png)
+![normalization tables](./images/normalization-2.drawio.png)
+
 ### Database Implementation and Operation
 
 - setup
@@ -93,3 +102,7 @@ Future improvements:
 ## Conclusion
 
 ## References
+
+- health physics book
+- Marty
+- draw.io
