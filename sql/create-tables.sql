@@ -61,3 +61,18 @@ CREATE TABLE zone (
     CONSTRAINT unique_site_bldg_zone UNIQUE (site_num, bldg_num, zone_num),
     FOREIGN KEY (site_num, bldg_num) REFERENCES building (site_num, bldg_num) ON UPDATE CASCADE
 );
+
+DROP TABLE IF EXISTS lab;
+CREATE TABLE lab (
+    lab_id INT AUTO_INCREMENT,
+    lab_name VARCHAR(80) NOT NULL,
+    lab_street_address VARCHAR(120) NOT NULL,
+    lab_city VARCHAR(80) NOT NULL,
+    lab_region VARCHAR(50) NOT NULL,
+    lab_country VARCHAR(30) NOT NULL,
+    lab_postal_code CHAR(7) NOT NULL,
+    lab_phone CHAR(10) NOT NULL,
+    lab_email VARCHAR(100) NOT NULL,
+    PRIMARY KEY (lab_id),
+    CONSTRAINT unique_phone_email UNIQUE (lab_phone, lab_email)
+);
