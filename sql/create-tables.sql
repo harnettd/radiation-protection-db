@@ -76,3 +76,11 @@ CREATE TABLE lab (
     PRIMARY KEY (lab_id),
     CONSTRAINT unique_phone_email UNIQUE (lab_phone, lab_email)
 );
+
+DROP TABLE IF EXISTS equipment_category;
+CREATE TABLE equipment_category (
+    eq_cat_code INT AUTO_INCREMENT,
+    eq_cat_name VARCHAR(80) NOT NULL,
+    eq_cat_cal_freq_d INT NOT NULL,
+    PRIMARY KEY (eq_cat_code)
+);
