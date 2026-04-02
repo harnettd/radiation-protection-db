@@ -84,3 +84,16 @@ CREATE TABLE equipment_category (
     eq_cat_cal_freq_d INT NOT NULL,
     PRIMARY KEY (eq_cat_code)
 );
+
+DROP TABLE IF EXISTS equipment;
+CREATE TABLE equipment (
+    eq_ser_num VARCHAR(80),
+    eq_make VARCHAR(80) NOT NULL,
+    eq_model VARCHAR(80) NOT NULL,
+    eq_status VARCHAR(25) NOT NULL CHECK (eq_status IN ('ready', 'deployed', 'out of service', 'retired')),
+    eq_last_cal_date DATE NOT NULL,
+    eq_next_cal_date DATE NOT NULL,
+    eq_cat_code INT NOT NULL,
+    PRIMARY KEY (eq_ser_num),
+    FOREIGN KEY (eq_cat_code) REFERENCES equipment_category (eq_cat_code) ON UPDATE CASCADE
+);
