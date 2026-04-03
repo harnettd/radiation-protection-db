@@ -5,6 +5,7 @@
 -- Version : 0.1.0
 -- --------------------------------------------------------------------------
 
-INSERT INTO test (col_1, col_2)
-VALUES (1, 'one'),
-       (2, 'two');
+INSERT INTO job_category (job_title, job_desc)
+VALUES ('miner', 'Mines uranium.'),
+       ('radiation technician', 'Collects area samples.'),
+       ('radiation safety office', 'Approves samples.');
