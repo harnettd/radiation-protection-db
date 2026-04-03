@@ -97,3 +97,35 @@ CREATE TABLE equipment (
     PRIMARY KEY (eq_ser_num),
     FOREIGN KEY (eq_cat_code) REFERENCES equipment_category (eq_cat_code) ON UPDATE CASCADE
 );
+
+DROP TABLE IF EXISTS sample_category;
+CREATE TABLE sample_category (
+    samp_cat_code INT AUTO_INCREMENT,
+    samp_cat_name VARCHAR(50) NOT NULL UNIQUE,
+    samp_cat_desc TEXT,
+    PRIMARY KEY (samp_cat_code)
+);
+
+DROP TABLE IF EXISTS sample;
+CREATE TABLE sample (
+    sample_id INT AUTO_INCREMENT,
+    sample_start DATETIME NOT NULL,
+    sample_end DATETIME NOT NULL,
+    sample_is_void BOOLEAN NOT NULL DEFAULT FALSE,
+    sample_void_comment TEXT,
+    sample_cat_code INT NOT NULL,
+    worker_id INT NOT NULL,
+    PRIMARY KEY (sample_id),
+    FOREIGN KEY (samp_cat_code) REFERENCES sample_category (sample_cat_code) ON UPDATE CASCADE,
+    FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS equipment_sample;
+CREATE TABLE equipment_sample (
+    es_id INT AUTO_INCREMENT,
+    eq_ser_num VARCHAR(80) NOT NULL,
+    sample_id INT NOT NULL,
+    PRIMARY KEY (es_id),
+    FOREIGN KEY (eq_ser_num) REFERENCES equipment (eq_ser_num) ON UPDATE CASCADE,
+    FOREIGN KEY (sample_id) REFERENCES sample (sample_id) ON UPDATE CASCADE 
+);
