@@ -129,3 +129,73 @@ CREATE TABLE equipment_sample (
     FOREIGN KEY (eq_ser_num) REFERENCES equipment (eq_ser_num) ON UPDATE CASCADE,
     FOREIGN KEY (sample_id) REFERENCES sample (sample_id) ON UPDATE CASCADE 
 );
+
+DROP TABLE IF EXISTS area_radon_result;
+CREATE TABLE area_radon_result (
+    sample_id INT,
+    arr_concentration_bq_m3 DECIMAL(10, 6) NOT NULL CHECK (arr_concentration_bq_m3 >= 0),
+    worker_id INT NOT NULL,
+    zone_id INT NOT NULL,
+    PRIMARY KEY (sample_id),
+    FOREIGN KEY (sample_id) REFERENCES sample (sample_id) ON UPDATE CASCADE,
+    FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE,
+    FOREIGN KEY (zone_id) REFERENCES zone (zone_id) ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS area_alpha_result;
+CREATE TABLE area_alpha_result (
+    sample_id INT,
+    aar_concentration_bq_m3 DECIMAL(10, 6) NOT NULL CHECK (aar_concentration_bq_m3 >= 0),
+    worker_id INT NOT NULL,
+    zone_id INT NOT NULL,
+    PRIMARY KEY (sample_id),
+    FOREIGN KEY (sample_id) REFERENCES sample (sample_id) ON UPDATE CASCADE,
+    FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE,
+    FOREIGN KEY (zone_id) REFERENCES zone (zone_id) ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS area_gamma_result;
+CREATE TABLE area_gamma_result (
+    sample_id INT,
+    agr_dose_rate_usv_hr DECIMAL(10, 6) NOT NULL CHECK (agr_dose_rate_usv_hr >= 0),
+    worker_id INT NOT NULL,
+    zone_id INT NOT NULL,
+    PRIMARY KEY (sample_id),
+    FOREIGN KEY (sample_id) REFERENCES sample (sample_id) ON UPDATE CASCADE,
+    FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE,
+    FOREIGN KEY (zone_id) REFERENCES zone (zone_id) ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS person_drd_result;
+CREATE TABLE person_drd_result (
+    sample_id INT,
+    drd_dose_usv DECIMAL(10, 6) NOT NULL CHECK (drd_dose_usv >= 0),
+    worker_id INT NOT NULL,
+    PRIMARY KEY (sample_id),
+    FOREIGN KEY (sample_id) REFERENCES sample (sample_id) ON UPDATE CASCADE,
+    FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS person_pad_result;
+CREATE TABLE person_pad_result (
+    sample_id INT,
+    ppr_dose_msv DECIMAL(10, 6) NOT NULL CHECK (ppr_dose_msv >= 0),
+    worker_id INT NOT NULL,
+    lab_id INT NOT NULL,
+    PRIMARY KEY (sample_id),
+    FOREIGN KEY (sample_id) REFERENCES sample (sample_id) ON UPDATE CASCADE,
+    FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE,
+    FOREIGN KEY (lab_id) REFERENCES lab (lab_id) ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS person_osld_result;
+CREATE TABLE person_osld_result (
+    sample_id INT,
+    por_dose_msv DECIMAL(10, 6) NOT NULL CHECK (por_dose_msv >= 0),
+    worker_id INT NOT NULL,
+    lab_id INT NOT NULL,
+    PRIMARY KEY (sample_id),
+    FOREIGN KEY (sample_id) REFERENCES sample (sample_id) ON UPDATE CASCADE,
+    FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE,
+    FOREIGN KEY (lab_id) REFERENCES lab (lab_id) ON UPDATE CASCADE
+);
