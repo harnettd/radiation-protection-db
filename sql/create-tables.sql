@@ -5,7 +5,30 @@
 -- Version : 0.1.0
 -- --------------------------------------------------------------------------
 
+
+-- Drop all tables
+
+DROP TABLE IF EXISTS person_osld_result;
+DROP TABLE IF EXISTS person_pad_result;
+DROP TABLE IF EXISTS person_drd_result;
+DROP TABLE IF EXISTS area_gamma_result;
+DROP TABLE IF EXISTS area_alpha_result;
+DROP TABLE IF EXISTS area_radon_result;
+DROP TABLE IF EXISTS equipment_sample;
+DROP TABLE IF EXISTS sample;
+DROP TABLE IF EXISTS sample_category;
+DROP TABLE IF EXISTS equipment;
+DROP TABLE IF EXISTS equipment_category;
+DROP TABLE IF EXISTS lab;
+DROP TABLE IF EXISTS zone;
+DROP TABLE IF EXISTS building;
+DROP TABLE IF EXISTS site;
+DROP TABLE IF EXISTS worker;
 DROP TABLE IF EXISTS job_category;
+
+
+-- Create all tables
+
 CREATE TABLE job_category (
     job_code INT AUTO_INCREMENT,
     job_title VARCHAR(80) NOT NULL UNIQUE,
@@ -13,7 +36,6 @@ CREATE TABLE job_category (
     PRIMARY KEY (job_code)
 );
 
-DROP TABLE IF EXISTS worker;
 CREATE TABLE worker (
     worker_id INT AUTO_INCREMENT,
     worker_fname VARCHAR(40) NOT NULL,
@@ -27,7 +49,6 @@ CREATE TABLE worker (
     FOREIGN KEY (job_code) REFERENCES job_category (job_code) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS site;
 CREATE TABLE site (
     site_num INT AUTO_INCREMENT,
     site_name VARCHAR(80) NOT NULL,
@@ -40,7 +61,6 @@ CREATE TABLE site (
     CONSTRAINT unique_location UNIQUE (site_lat, site_long)
 );
 
-DROP TABLE IF EXISTS building;
 CREATE TABLE building (
     bldg_num INT NOT NULL,
     bldg_name VARCHAR(80) NOT NULL,
@@ -50,7 +70,6 @@ CREATE TABLE building (
     FOREIGN KEY (site_num) REFERENCES site (site_num) ON UPDATE CASCADE
 ); 
 
-DROP TABLE IF EXISTS zone;
 CREATE TABLE zone (
     zone_id INT AUTO_INCREMENT,
     zone_num INT NOT NULL,
@@ -62,7 +81,6 @@ CREATE TABLE zone (
     FOREIGN KEY (site_num, bldg_num) REFERENCES building (site_num, bldg_num) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS lab;
 CREATE TABLE lab (
     lab_id INT AUTO_INCREMENT,
     lab_name VARCHAR(80) NOT NULL,
@@ -77,7 +95,6 @@ CREATE TABLE lab (
     CONSTRAINT unique_phone_email UNIQUE (lab_phone, lab_email)
 );
 
-DROP TABLE IF EXISTS equipment_category;
 CREATE TABLE equipment_category (
     eq_cat_code INT AUTO_INCREMENT,
     eq_cat_name VARCHAR(80) NOT NULL,
@@ -85,7 +102,6 @@ CREATE TABLE equipment_category (
     PRIMARY KEY (eq_cat_code)
 );
 
-DROP TABLE IF EXISTS equipment;
 CREATE TABLE equipment (
     eq_ser_num VARCHAR(80),
     eq_make VARCHAR(80) NOT NULL,
@@ -98,7 +114,6 @@ CREATE TABLE equipment (
     FOREIGN KEY (eq_cat_code) REFERENCES equipment_category (eq_cat_code) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS sample_category;
 CREATE TABLE sample_category (
     samp_cat_code INT AUTO_INCREMENT,
     samp_cat_name VARCHAR(50) NOT NULL UNIQUE,
@@ -106,21 +121,19 @@ CREATE TABLE sample_category (
     PRIMARY KEY (samp_cat_code)
 );
 
-DROP TABLE IF EXISTS sample;
 CREATE TABLE sample (
     sample_id INT AUTO_INCREMENT,
     sample_start DATETIME NOT NULL,
     sample_end DATETIME NOT NULL,
     sample_is_void BOOLEAN NOT NULL DEFAULT FALSE,
     sample_void_comment TEXT,
-    sample_cat_code INT NOT NULL,
+    samp_cat_code INT NOT NULL,
     worker_id INT NOT NULL,
     PRIMARY KEY (sample_id),
-    FOREIGN KEY (samp_cat_code) REFERENCES sample_category (sample_cat_code) ON UPDATE CASCADE,
+    FOREIGN KEY (samp_cat_code) REFERENCES sample_category (samp_cat_code) ON UPDATE CASCADE,
     FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS equipment_sample;
 CREATE TABLE equipment_sample (
     es_id INT AUTO_INCREMENT,
     eq_ser_num VARCHAR(80) NOT NULL,
@@ -130,7 +143,6 @@ CREATE TABLE equipment_sample (
     FOREIGN KEY (sample_id) REFERENCES sample (sample_id) ON UPDATE CASCADE 
 );
 
-DROP TABLE IF EXISTS area_radon_result;
 CREATE TABLE area_radon_result (
     sample_id INT,
     arr_concentration_bq_m3 DECIMAL(10, 6) NOT NULL CHECK (arr_concentration_bq_m3 >= 0),
@@ -142,7 +154,6 @@ CREATE TABLE area_radon_result (
     FOREIGN KEY (zone_id) REFERENCES zone (zone_id) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS area_alpha_result;
 CREATE TABLE area_alpha_result (
     sample_id INT,
     aar_concentration_bq_m3 DECIMAL(10, 6) NOT NULL CHECK (aar_concentration_bq_m3 >= 0),
@@ -154,7 +165,6 @@ CREATE TABLE area_alpha_result (
     FOREIGN KEY (zone_id) REFERENCES zone (zone_id) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS area_gamma_result;
 CREATE TABLE area_gamma_result (
     sample_id INT,
     agr_dose_rate_usv_hr DECIMAL(10, 6) NOT NULL CHECK (agr_dose_rate_usv_hr >= 0),
@@ -166,7 +176,6 @@ CREATE TABLE area_gamma_result (
     FOREIGN KEY (zone_id) REFERENCES zone (zone_id) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS person_drd_result;
 CREATE TABLE person_drd_result (
     sample_id INT,
     drd_dose_usv DECIMAL(10, 6) NOT NULL CHECK (drd_dose_usv >= 0),
@@ -176,7 +185,6 @@ CREATE TABLE person_drd_result (
     FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS person_pad_result;
 CREATE TABLE person_pad_result (
     sample_id INT,
     ppr_dose_msv DECIMAL(10, 6) NOT NULL CHECK (ppr_dose_msv >= 0),
@@ -188,7 +196,6 @@ CREATE TABLE person_pad_result (
     FOREIGN KEY (lab_id) REFERENCES lab (lab_id) ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS person_osld_result;
 CREATE TABLE person_osld_result (
     sample_id INT,
     por_dose_msv DECIMAL(10, 6) NOT NULL CHECK (por_dose_msv >= 0),
