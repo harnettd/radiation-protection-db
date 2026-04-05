@@ -8,4 +8,4 @@
 INSERT INTO job_category (job_title, job_desc)
 VALUES ('miner', 'Mines uranium.'),
        ('radiation technician', 'Collects area samples.'),
-       ('radiation safety office', 'Approves samples.');
+       ('radiation safety officer', 'Approves samples.');

@@ -2,48 +2,21 @@
 
 ## Table of Contents
 
+- [Introduction](#introduction)
+
 ## Introduction
 
-- Uranium is a common element that can be found throughout the Earth's crust.
-- Uranium has many uses: nuclear power plants, nuclear medicine,
-- Canada, particularly Saskatchewan, has some of the world's largest uranium deposits.
-- There are several active and planned mines.
+Uranium is a common element found throughout Earth's crust. Uranium is mined to be used as fuel in nuclear power plants. Canada, particularly Saskatchewan, has some of the world's largest uranium deposits. In Saskatchewan, there are several active and planned uranium mines.
 
-- Uranium is radioactive. Uranium ore contains all elements of the U-238 and U-235 decay chains.
-- atom, nucleus, atomic number, mass number
-- There are three types of nuclear radiation:
-    - alpha
-        - ejection of a helium-4 nucleus
-        - decreases atomic number by 2, decreases mass number by 4
-    - beta
-        - ejection of an electron
-        - increases atomic number by 1, leaves mass number unchanged 
-    - gamma
-        - emission of high-energy electromagnetic radiation
-- Naturally-occurring uranium is in secular(?) equilibrium with its progeny including radon gas.
+Compared to other types of mining, uranium mining presents additional challenges as uranium is radioactive. Two types of radioactivity are of particular concern in uranium mining. The first is alpha emission. In alpha emission, an atomic nucleus (the parent) emits a helium-4 nucleus (a bound state of two protons and two neutrons often called an alpha ray) and transforms into a nucleus of a different element (the progeny). The second is gamma emission. In gamma emission, a radioactive substance emits high-frequency, short-wavelength electromagnetic radiation (often called gamma rays).
 
-- When absorbed by a material such as human tissue or bone, all three types of radiation cause the material to absorb energy (through various mechanisms).
-- Energy absorbed by a human body due to exposure to radiation is called absorbed dose and is measured in Grays (Gy) where 1 Gy = 1 J/kg.
-- The biological effects of radiation exposure depend on absorbed dose as well as radiation type. Equivalent dose combines the two (somehow) and is measured in sieverts (Sv).
-- There is also effective dose.
-- The absorbed energy, measured in J/kg, causes excitation and ionization. 
-- alpha:
-    - easily blocked by shielding (such as a sheet of paper or a layer of dead skin cells)
-    - dangerous if inhaled or injested, i.e., internal, not external threat
-- beta:
-    - more penetrating than alpha particles
-    - can be blocked by shielding (a sheet of plastic?)
-- gamma:
-    - highly penetrating
-    - cannot be completely blocked
-- Large doses of absorbed radiation can lead to skin burns, radiation sickness, and an increased likelihood of cancer.
+Material exposed to radiation absorbs energy from the radiation. Radiation dose is a measure of energy absorbed per mass. Large radiation doses in human tissue or bone can cause radiation sickness, burns, and an increased likelihood of cancer. 
 
-- The goal of radiation protection is to prevent workers from absorbing unsafe levels of radiation:
-    - areas are regularly monitored for radiation exposure
-    - workers are regularly monitored for radiation absorption dose
-    - if necessary, workers can be subjects of in vivo or in vitro tests.
-- results in a large amount of data collected and analyzed
-- regular reports issued to workers, managers, and regulators
+Alpha rays generally have relatively low penetrating power and are easily blocked by shielding such as a sheet of paper or a person's epidermis (outler layer of skin). As such, alpha radiation is regarded as an internal, not external, radiation hazard. An alpha emitter is dangerous mainly if it enters the body through inhalation, ingestion, or through a wound. In contrast, gamma radiation has relatively high penetrating power and cannot be completely blocked by shielding. Gamma rays are both an internal and external radiation hazard.
+
+Another radiation-related concern in uranium mining is the release of radon gas. Uranium-238 (the principal component of uranium in Earth's crust) decays naturally via a sequence of radiation emissions (including several alpha emissions). Among the progeny of these decays is radon-222, a colourless, odourless, chemically-inert gas. Radon-222 is an alpha emitter, but perhaps of greater significance, being an inert gas, it easily disperses throughout the environment, effectively spreading radioactivity.   
+
+The goals of radiation protection are to prevent both workers and the general public from absorbing unsafe levels of radiation and to prevent environmental contamination with radioactive material. To achieve these goals, radiation-protection professionals at uranium mines regularly test workers for absorbed doses from alpha and gamma radiation and test areas within mine sites for concentration of radioactive material, including radon-222. Such tests result in a large amount of data to be collected, stored, and analyzed. Furthermore, regular reports must be made available to workers, managers, and government regulators.
 
 ## Database Design
 
