@@ -7,6 +7,7 @@
 
 -- Generate a calibration report showing each piece of equipment that is
 -- overdue for calibration.
+DROP VIEW IF EXISTS calibration_report;
 CREATE VIEW calibration_report AS
     SELECT
         eq_ser_num,
@@ -17,5 +18,4 @@ CREATE VIEW calibration_report AS
     FROM equipment JOIN
         equipment_category USING (eq_cat_code)
     WHERE DATEDIFF(eq_next_cal_date, CURRENT_DATE) < 0
-    ORDER BY days_overdue, eq_cat_name
-;
+    ORDER BY days_overdue, eq_cat_name;
