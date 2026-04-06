@@ -26,7 +26,7 @@ The goals of radiation protection are to prevent both workers and the general pu
 
 The business rules that guide the database design are as follows:
 
-- Each worker has the following attributes: ID, name, social insurance number (SIN), phone number, and email address. Also, each worker belongs to precisely one job category characterized by a job code, a title (*e.g.,* miner, radiation technician, or radiation safety officer (RSO)), and a job description. There are zero or more workers per job.
+- Each worker has the following attributes: ID, name, social insurance number (SIN) which is generally required by federal regulatory agencies, phone number, and email address. Also, each worker belongs to precisely one job category characterized by a job code, a title (*e.g.,* miner, radiation technician, or radiation safety officer (RSO)), and a job description. There are zero or more workers per job.
 - There are one or more mining sites. Each mining site comprises zero or more buildings. Each building comprises one or more zones. Mining sites are characterized by a number, a name, a description, a location (*i.e.,* latitude and longitude), a region (*e.g.,* Saskatchewan), and a country (*e.g.,* Canada). Buildings are characterized by a number (starting at 1 for each site), a name, and a description. Zones are characterized by a number (starting at 1 for each building) and a description.
 - Many pieces of equipment are used in radiation safety at uranium mines. Data that needs to be tracked for each piece of equipment are a serial number, a make, a model, a status (*i.e.,* ready, deployed, out of service, or retired), a last-calibration date, and a next-calibration date. Also, each piece of equipment belongs to precisely one category, and each category contains zero or more pieces of equipment. Each equipment category has a code, a name (*e.g.,* air pump, alpha counter, gamma meter, optically-stimulated luminescent dosimeter (OSLD), personal alpha dosimeter (PAD), or direct-reading dosimeter (DRD)), a description, and a recommended calibration frequency (in days).
 - Once used in the field, certain types of equipment (namely OSLDs and PADs) need to be shipped to an external lab for analysis. A lab is characterized by an ID, a name, a shipping address, a phone number, and an email address.
@@ -44,23 +44,19 @@ The business rules that guide the database design are as follows:
 
 ## Conceptual Database Design Model
 
-The following figure depicts the database design at a conceptual level. In particular, entities, attributes, and relationships have been defined.
-
-**TODO: Explain the choices made for results tables.**
+The following figure depicts the database design at a conceptual level, implementing the business rules discussed above. In particular, entities, attributes, and relationships have been defined. It is worth noting that, rather than a single table for samples and their corresponding results, multiple tables are used instead. The attributes of the sample table are those pieces of data common to all samples, regardless of category (*e.g.,* OSLD, PAD, area radon, *etc...*). Each sample belongs to a sample category, and each sample category has its own corresponding result table related to sample through a 1:1 relationship where a sample is mandatory but a result is optional. (For instance, a PAD sample will have a corresponding row in the area_pad_result table but not in, say, the aar_concentration_bq_m3 table.) This structure minimizes repetition and NULL entries. Furthermore, it can be easily extended to accommodate new sample categories without requiring that existing tables be altered.
 
 ![Conceptual design model](./images/erd-1.drawio.png)
 
 ## Logical Database Design Model
 
-The following figure depicts the database design at a logical level. In particular, primary Keys (PKs) and foreign keys (FKs) have been clearly defined. Also, a bridging table has been introduced in order to implement the many-to-many relationship between the equipment and sample entities.
+The following figure depicts the database design at a logical level. In particular, primary Keys (PKs) and foreign keys (FKs) have been clearly defined. Also, a bridging table has been introduced in order to implement the many-to-many relationship between the equipment and sample tables.
 
 ![Logical design model](./images/erd-2.drawio.png)
 
 ## Normalization
 
-From the normalization diagrams shown below,
-it can be seen that all tables except site and lab are BCNF.
-The site and lab tables are 2NF, but not 3NF as both tables contain one or more transitive dependencies. (Explain the decision to stay at 2NF.)
+From the normalization diagrams shown below, it can be seen that all tables except site and lab are BCNF. The site and lab tables are 2NF, but not 3NF as both tables contain one or more transitive dependencies. For the site table, site_region and site_country can be thought of as functions of site_lat and site_long. Similarly, for the lab table, lab_postal_code can be thought of as a function of lab_street_address, lab_city, and lab_region. However, separate lookup tables implementing these relationships seems unnecessary. Both the site and lab tables will likely contain only a few entries and no repeated latitude and longitude coordinates and/or postal codes. As such, two new lookup tables would not lead to a decrease in data repetition, just a more complicated schema. For this reason, the site and lab tables are left in 2NF form. 
 
 Note that the worker and zone tables each have a primary key (PK) as well as a second candidate key. For the worker table, worker_id is the PK whereas worker_sin (SIN) is an additional candidate key. For the zone table, zone_id is a surrogate PK, helpful for joins that involve this table. The triple (site_num, bldg_num, zone_num) is a (hierarchical) candidate key.
 
