@@ -6,12 +6,16 @@
 -- --------------------------------------------------------------------------
 
 INSERT INTO job_category (job_title, job_desc)
-VALUES ('miner', 'Mines uranium.'),
-       ('radiation technician', 'Collects area samples.'),
-       ('radiation safety officer', 'Approves samples.');
+VALUES ('miner', 'mines uranium'),
+       ('radiation technician', 'collects area samples'),
+       ('radiation safety officer', 'approves samples');
 
 INSERT INTO worker (worker_fname, worker_initials, worker_lname, worker_sin, worker_phone, worker_email, job_code)
-VALUES ();
+VALUES ('Page', NULL, 'Lemart', '123456789', '7789584512', 'plemart@u238mineco.ca', 3),
+       ('Martha', 'G.', 'Smith', '789123456', '7789584879', 'msmith@u238mineco.ca', 2),
+       ('Angela', NULL, 'Jaswal', '987654321', '7789581122', 'ajaswal@u238mineco.ca', 2),
+       ('Brett', 'B.B.', 'Bretterson', '197345682', '7789587558', 'bbretterson@u238mineco.ca', 1),
+       ('Coop', 'A.', 'Cooper', '111555999', '7789589544', 'ccooper@u238mineco.ca', 1);
 
 INSERT INTO site (site_name, site_desc, site_lat, site_long, site_region, site_country)
 VALUES ();
