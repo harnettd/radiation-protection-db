@@ -54,7 +54,7 @@ VALUES ('air pump', 30),
        ('gamma meter', 60);
 
 INSERT INTO equipment (eq_ser_num, eq_make, eq_model, eq_status, eq_last_cal_date, eq_next_cal_date, eq_cat_code)
-VALUES ('AIR-2020-001', 'AirPumper', 'A-1000',    'ready', '2026-04-01', DATE_ADD('2026-04-01', INTERVAL 30 DAY), 1),
+VALUES ('AIR-2020-001', 'AirPumper', 'A-1000',    'ready', '2026-03-01', DATE_ADD('2026-03-01', INTERVAL 30 DAY), 1),
        ('AIR-2020-002', 'AirPumper', 'A-1000', 'deployed', '2026-03-31', DATE_ADD('2026-03-31', INTERVAL 30 DAY), 1),
        ('ALP-2023-050', 'AlphaCount', 'S1',       'ready', '2026-03-01', DATE_ADD('2026-03-01', INTERVAL 60 DAY), 2),
        ('ALP-2024-100', 'AlphaCount', 'S2',       'ready', '2026-03-15', DATE_ADD('2026-03-15', INTERVAL 60 DAY), 2),
@@ -64,7 +64,7 @@ VALUES ('AIR-2020-001', 'AirPumper', 'A-1000',    'ready', '2026-04-01', DATE_AD
        ('STM-2025-601', 'Stimulex',   'Stimpack', 'ready', '2026-01-12', DATE_ADD('2026-01-12', INTERVAL 90 DAY), 4),
        ('RME-2023-010', 'README',   'V0.1.0',     'ready', '2026-04-25', DATE_ADD('2026-04-25', INTERVAL 30 DAY), 5),
        ('RME-2024-011', 'README',   'V0.1.1',     'ready', '2026-04-05', DATE_ADD('2026-04-05', INTERVAL 30 DAY), 5),
-       ('GAM-2026-999', 'Gamete',   'Basic',   'deployed', '2026-03-05', DATE_ADD('2026-03-05', INTERVAL 60 DAY), 6),
+       ('GAM-2026-999', 'Gamete',   'Basic',   'deployed', '2026-01-05', DATE_ADD('2026-01-05', INTERVAL 60 DAY), 6),
        ('GAM-2026-888', 'Gamete',   'Basic',      'ready', '2026-04-05', DATE_ADD('2026-04-05', INTERVAL 60 DAY), 6);
        
 

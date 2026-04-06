@@ -35,4 +35,7 @@ run_sql create-tables.sql
 # Insert sample data into tables
 run_sql insert-into-tables.sql
 
+# Create views
+run_sql create-views.sql
+
 echo Setup complete

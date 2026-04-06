@@ -69,6 +69,8 @@ Note that the worker and zone tables each have a primary key (PK) as well as a s
 - create daily and monthly reports summarizing RnP, RnG (active) area monitoring
 - create cumulative monthly, quarterly, annual RnP doses for each worker
 
+![Overdue calibration report](./images/calibration_report.png)
+
 ## Discussion
 
 Future improvements:
