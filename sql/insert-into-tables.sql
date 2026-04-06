@@ -42,16 +42,27 @@ VALUES (1, 'ground floor', 1, 1),
        (1, 'sub-basement', 3, 2);
 
 INSERT INTO lab (lab_name, lab_street_address, lab_city, lab_region, lab_country, lab_postal_code, lab_phone, lab_email)
-VALUES ();
+VALUES ('RadYouHave Inc.', '19 Warbler St', 'Kitimat', 'British Columbia', 'Canada', 'V2G 3H7', '7785556667', 'radyouhave@aws.ca'),
+       ('ReadYourDevice Co.', '4501 Mallard Ave', 'Truro', 'Nova Scotia', 'Canada', 'B3P 6T0', '7786665342', 'readyourdevice@azure.ca');
 
 INSERT INTO equipment_category (eq_cat_name, eq_cat_cal_freq_d)
-VALUES ();
+VALUES ('air pump', 30),
+       ('alpha counter', 60),
+       ('personal alpha dosimeter', 90),
+       ('optically stimulated luminescent dosimeter', 90),
+       ('direct reading dosimeter', 30),
+       ('gamma meter', 60);
 
 INSERT INTO equipment (eq_ser_num, eq_make, eq_model, eq_status, eq_last_cal_date, eq_next_cal_date, eq_cat_code)
 VALUES ();
 
 INSERT INTO sample_category (samp_cat_name, samp_cat_desc)
-VALUES ();
+VALUES ('area radon', 'test for radon gas concentration in a zone'),
+       ('area alpha', 'test for alpha emitter concentration in a zone'),
+       ('area gamma', 'test for gamma dose rate in a zone'),
+       ('person drd', 'test a worker for daily gamma dose'),
+       ('person pad', 'test a worker for monthly alpha dose'),
+       ('person osld', 'test a worker for monthly gamma dose');
 
 INSERT INTO sample (sample_start, sample_end, sample_is_void, sample_void_comment, samp_cat_code, worker_id)
 VALUES ();
