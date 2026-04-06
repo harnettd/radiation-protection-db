@@ -54,7 +54,19 @@ VALUES ('air pump', 30),
        ('gamma meter', 60);
 
 INSERT INTO equipment (eq_ser_num, eq_make, eq_model, eq_status, eq_last_cal_date, eq_next_cal_date, eq_cat_code)
-VALUES ();
+VALUES ('AIR-2020-001', 'AirPumper', 'A-1000',    'ready', '2026-04-01', DATE_ADD('2026-04-01', INTERVAL 30 DAY), 1),
+       ('AIR-2020-002', 'AirPumper', 'A-1000', 'deployed', '2026-03-31', DATE_ADD('2026-03-31', INTERVAL 30 DAY), 1),
+       ('ALP-2023-050', 'AlphaCount', 'S1',       'ready', '2026-03-01', DATE_ADD('2026-03-01', INTERVAL 60 DAY), 2),
+       ('ALP-2024-100', 'AlphaCount', 'S2',       'ready', '2026-03-15', DATE_ADD('2026-03-15', INTERVAL 60 DAY), 2),
+       ('CLP-2022-111', 'Clip-On',    'PAD-X',    'ready', '2026-02-01', DATE_ADD('2026-02-01', INTERVAL 90 DAY), 3),
+       ('CLP-2022-222', 'Clip-On',    'PAD-X',    'ready', '2026-02-15', DATE_ADD('2026-02-15', INTERVAL 90 DAY), 3),
+       ('STM-2025-501', 'Stimulex',   'Stimpack', 'ready', '2026-03-15', DATE_ADD('2026-03-15', INTERVAL 90 DAY), 4),
+       ('STM-2025-601', 'Stimulex',   'Stimpack', 'ready', '2026-01-12', DATE_ADD('2026-01-12', INTERVAL 90 DAY), 4),
+       ('RME-2023-010', 'README',   'V0.1.0',     'ready', '2026-04-25', DATE_ADD('2026-04-25', INTERVAL 30 DAY), 5),
+       ('RME-2024-011', 'README',   'V0.1.1',     'ready', '2026-04-05', DATE_ADD('2026-04-05', INTERVAL 30 DAY), 5),
+       ('GAM-2026-999', 'Gamete',   'Basic',   'deployed', '2026-03-05', DATE_ADD('2026-03-05', INTERVAL 60 DAY), 6),
+       ('GAM-2026-888', 'Gamete',   'Basic',      'ready', '2026-04-05', DATE_ADD('2026-04-05', INTERVAL 60 DAY), 6);
+       
 
 INSERT INTO sample_category (samp_cat_name, samp_cat_desc)
 VALUES ('area radon', 'test for radon gas concentration in a zone'),
@@ -64,26 +76,26 @@ VALUES ('area radon', 'test for radon gas concentration in a zone'),
        ('person pad', 'test a worker for monthly alpha dose'),
        ('person osld', 'test a worker for monthly gamma dose');
 
-INSERT INTO sample (sample_start, sample_end, sample_is_void, sample_void_comment, samp_cat_code, worker_id)
-VALUES ();
+-- INSERT INTO sample (sample_start, sample_end, sample_is_void, sample_void_comment, samp_cat_code, worker_id)
+-- VALUES ();
 
-INSERT INTO equipment_sample (eq_ser_num, sample_id)
-VALUES ();
+-- INSERT INTO equipment_sample (eq_ser_num, sample_id)
+-- VALUES ();
 
-INSERT INTO area_radon_result (sample_id, arr_concentration_bq_m3, worker_id, zone_id)
-VALUES ();
+-- INSERT INTO area_radon_result (sample_id, arr_concentration_bq_m3, worker_id, zone_id)
+-- VALUES ();
 
-INSERT INTO area_alpha_result (sample_id, aar_concentration_bq_m3, worker_id, zone_id)
-VALUES ();
+-- INSERT INTO area_alpha_result (sample_id, aar_concentration_bq_m3, worker_id, zone_id)
+-- VALUES ();
 
-INSERT INTO area_gamma_result (sample_id, agr_dose_rate_usv_hr, worker_id, zone_id)
-VALUES ();
+-- INSERT INTO area_gamma_result (sample_id, agr_dose_rate_usv_hr, worker_id, zone_id)
+-- VALUES ();
 
-INSERT INTO person_drd_result (sample_id, drd_dose_usv, worker_id)
-VALUES ();
+-- INSERT INTO person_drd_result (sample_id, drd_dose_usv, worker_id)
+-- VALUES ();
 
-INSERT INTO person_pad_result (sample_id, ppr_dose_msv, worker_id, lab_id)
-VALUES ();
+-- INSERT INTO person_pad_result (sample_id, ppr_dose_msv, worker_id, lab_id)
+-- VALUES ();
 
-INSERT INTO person_osld_result (sample_id, por_dose_msv, worker_id, lab_id)
-VALUES ();
+-- INSERT INTO person_osld_result (sample_id, por_dose_msv, worker_id, lab_id)
+-- VALUES ();
