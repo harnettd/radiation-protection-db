@@ -18,13 +18,28 @@ VALUES ('Page', NULL, 'Lemart', '123456789', '7789584512', 'plemart@u238mineco.c
        ('Coop', 'A.', 'Cooper', '111555999', '7789589544', 'ccooper@u238mineco.ca', 1);
 
 INSERT INTO site (site_name, site_desc, site_lat, site_long, site_region, site_country)
-VALUES ();
+VALUES ('Musk Ox Falls', 'active uranium mining site', 55.652, -104.549, 'Saskatchewan', 'Canada'),
+       ('Thirsty Mosquito Lake', NULL, 61.727, -109.376, 'Northwest Territories', 'Canada');
 
 INSERT INTO building (bldg_num, bldg_name, bldg_desc, site_num)
-VALUES ();
+VALUES (1, 'Administration', 'the building where offices are located', 1),
+       (2, 'Cafeteria', 'the building where workers eat', 1),
+       (3, 'Mine', 'the building where uranium is mined', 1),
+       (1, 'Administration', 'the building where offices are located', 2),
+       (2, 'Cafeteria', 'the building where workers eat', 2),
+       (3, 'Mine', 'the building where uranium is mined', 2);
 
 INSERT INTO zone (zone_num, zone_desc, bldg_num, site_num)
-VALUES ();
+VALUES (1, 'ground floor', 1, 1),
+       (2, 'second floor', 1, 1),
+       (1, 'ground floor', 2, 1),
+       (1, 'basement', 3, 1),
+       (2, 'sub-basement', 3, 1),
+       (1, 'ground floor', 1, 2),
+       (2, 'second floor', 1, 2),
+       (1, 'ground floor', 2, 2),
+       (2, 'basement', 3, 2),
+       (1, 'sub-basement', 3, 2);
 
 INSERT INTO lab (lab_name, lab_street_address, lab_city, lab_region, lab_country, lab_postal_code, lab_phone, lab_email)
 VALUES ();
