@@ -46,7 +46,8 @@ CREATE TABLE worker (
     worker_email VARCHAR(80) NOT NULL,
     job_code INT NOT NULL,
     PRIMARY KEY (worker_id),
-    FOREIGN KEY (job_code) REFERENCES job_category (job_code) ON UPDATE CASCADE
+    FOREIGN KEY (job_code) REFERENCES job_category (job_code) ON UPDATE CASCADE,
+    CONSTRAINT unique_phone_email UNIQUE (worker_phone, worker_email)
 );
 
 CREATE TABLE site (
@@ -72,7 +73,7 @@ CREATE TABLE building (
 
 CREATE TABLE zone (
     zone_id INT AUTO_INCREMENT,
-    zone_num INT NOT NULL,
+    zone_num INT NOT NULL CHECK (zone_num >= 1),
     zone_desc TEXT,
     bldg_num INT NOT NULL,
     site_num INT NOT NULL,
@@ -87,7 +88,7 @@ CREATE TABLE lab (
     lab_street_address VARCHAR(120) NOT NULL,
     lab_city VARCHAR(80) NOT NULL,
     lab_region VARCHAR(50) NOT NULL,
-    lab_country VARCHAR(30) NOT NULL,
+    lab_country VARCHAR(50) NOT NULL,
     lab_postal_code CHAR(7) NOT NULL,
     lab_phone CHAR(10) NOT NULL,
     lab_email VARCHAR(100) NOT NULL,
@@ -98,7 +99,7 @@ CREATE TABLE lab (
 CREATE TABLE equipment_category (
     eq_cat_code INT AUTO_INCREMENT,
     eq_cat_name VARCHAR(80) NOT NULL,
-    eq_cat_cal_freq_d INT NOT NULL,
+    eq_cat_cal_freq_d INT NOT NULL CHECK (eq_cat_cal_freq_d >= 1),
     PRIMARY KEY (eq_cat_code)
 );
 
@@ -111,7 +112,8 @@ CREATE TABLE equipment (
     eq_next_cal_date DATE NOT NULL,
     eq_cat_code INT NOT NULL,
     PRIMARY KEY (eq_ser_num),
-    FOREIGN KEY (eq_cat_code) REFERENCES equipment_category (eq_cat_code) ON UPDATE CASCADE
+    FOREIGN KEY (eq_cat_code) REFERENCES equipment_category (eq_cat_code) ON UPDATE CASCADE,
+    CONSTRAINT eq_next_cal_date_ok CHECK (eq_next_cal_date > eq_last_cal_date)
 );
 
 CREATE TABLE sample_category (
@@ -131,7 +133,8 @@ CREATE TABLE sample (
     worker_id INT NOT NULL,
     PRIMARY KEY (sample_id),
     FOREIGN KEY (samp_cat_code) REFERENCES sample_category (samp_cat_code) ON UPDATE CASCADE,
-    FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE
+    FOREIGN KEY (worker_id) REFERENCES worker (worker_id) ON UPDATE CASCADE,
+    CONSTRAINT sample_end_ok CHECK (sample_end > sample_start)
 );
 
 CREATE TABLE equipment_sample (
