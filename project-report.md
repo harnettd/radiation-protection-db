@@ -8,6 +8,8 @@
 - [Logical Database Design Model](#logical%20database%20design%20model)
 - [Normalization](#normalization)
 - [Database Implementation and Operation](#database%20implementation%20and%20operation)
+- [Discussion and Conclusions](#discussion%20and%20conclusions)
+- [Acknowledgements](#acknowledgements)
 
 ## Introduction
 
@@ -192,25 +194,26 @@ and yields the following results:
 
 ![Worker dose report](./images/worker-dose-report.png)
 
-## Discussion
+## Discussion and Conclusion
 
-Future improvements:
-- equipment calibration logs
-- lab shipping logs
-- timecards
-- worker promotions, *i.e.,* changes in job title
-- worker-dosimeter assigning and tracking
-- triggers
+In this project, a relational database for radiation safety in uranium mining was designed, implemented, and tested beginning from a collection of business rules and ending with the definition of five views that would prove useful for radiation monitoring and reporting.
 
-## Conclusion
+The database in question is best envisioned as part of a larger whole that would also address other business data needs related to, for instance, human resurces, inventory, uranium processing, sales, worker safety not related to radiation, *etc....*  
+
+However, even when focusing exclusively on the radiation-safety aspects of uranium mining, there is much room for future improvements. For example,
+- Equipment calibrations should be tracked in a calibration table noting, at the very least, calibration dates and calibration results.
+- Sending and receiving PADs and OSLDs from external labs would generate data that should be stored including sending dates, receiving dates, and which pieces of equipment were included with each shipment.
+- New equipment often needs to be purchased which requires vendors, orders, line items, *etc....* 
+- Workers at uranium mines are often required to fill out time-cards each day. Using the time-card data combined with the area-samples, a radiation dose can be computed each day for each worker. This can ultimately be compared to results from PADs and OSLDs as a consistency check.
+- Workers are assigned PADs and OSLDs on either a monthly or a quarterly basis. Sometimes workers lose their dosimeters. This possibility should somehow be accounted for in the database design.
+- There are other sample categories typically considered in radiation safety such as radon progeny, long-lived radioactive dust, and urine bioassays. These categories and corresponding results tables should be added to the database.   
+- There are some aspects of the business rules discussed above that are not readily implemented as either attribute or table constraints and might be better implemented as triggers. Examples include
+    - When a sample is declared void, it should be mandatory to include a reason.
+    - If a piece of equipment is issued to a worker, its status should generally change from ready to deployed.
+    - All samples must be approved by a radiation safety office. All area samples must be sampled by a radiation technician or a radiation safety office.
+
+The database discussed in this project was designed with flexibility and extensibility in mind and serves as a solid foundation for adding these and other features.
 
 ## Acknowledgements
 
-- prof
-- Marty
-
-## References
-
-- health physics book
-- Marty
-- draw.io
+Thanks to Dr. Ziaul Hossain for allowing me to enroll in COMP 230 at the University of the Fraser Valley. I learned a lot from the course. And thanks to Martin Lepage, a radiation safety officer at NexGen Energy Ltd., for many helpful discussions concerning radiation safety.
