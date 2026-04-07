@@ -82,7 +82,7 @@ CREATE VIEW area_frequency AS
 -- Generate a report for each worker indicating their year-to-date 
 -- absorbed dose as measured by PADs and OSLDs.
 DROP VIEW IF EXISTS worker_dose;
-CREATE VIEW worker_does AS
+CREATE VIEW worker_dose AS
     SELECT
         COALESCE(ppr.worker_id, por.worker_id) AS worker_id,
         worker_lname, worker_initials, worker_fname,
