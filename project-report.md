@@ -85,7 +85,7 @@ CREATE VIEW calibration_report AS
     ORDER BY days_overdue, eq_cat_name;
 ```
 
-![Overdue calibration report](./images/calibration_report.png)
+![Overdue calibration report](./images/calibration-report.png)
 
 ```sql
 DROP VIEW IF EXISTS void_equipment;
@@ -150,6 +150,26 @@ CREATE VIEW area_frequency AS
 ```
 
 ![Area sampling frequency report](./images/area-frequency-report.png)
+
+```sql
+CREATE VIEW worker_does AS
+    SELECT
+        COALESCE(ppr.worker_id, por.worker_id) AS worker_id,
+        worker_lname, worker_initials, worker_fname,
+        ROUND(SUM(ppr_dose_msv), 2) AS alpha_dose_ytd,
+        ROUND(SUM(por_dose_msv), 2) AS gamma_dose_ytd,
+        ROUND(SUM(ppr_dose_msv) + SUM(por_dose_msv), 2) AS total_dose_ytd 
+    FROM sample LEFT JOIN
+        person_pad_result ppr USING (sample_id) LEFT JOIN
+        person_osld_result por USING (sample_id) JOIN
+        worker w ON COALESCE(ppr.worker_id, por.worker_id) = w.worker_id
+    WHERE samp_cat_code IN (4, 5, 6) AND
+        EXTRACT(YEAR FROM sample_start) = EXTRACT(YEAR FROM CURRENT_DATE)
+    GROUP BY COALESCE(ppr.worker_id, por.worker_id)
+    ORDER BY worker_id;
+```
+
+![Worker dose report](./images/worker-dose-report.png)
 
 ## Discussion
 
