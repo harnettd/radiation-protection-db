@@ -12,18 +12,14 @@ set -euo pipefail
 # Config
 SQL_CMD=/opt/lampp/bin/mysql
 USER="${MYSQL_USER:-root}"
-# PASSWORD="${MYSQL_PASSWORD:-}"
 SQL_DIR=./sql
 DB_NAME=radiation_protection
 
 # MySQL wrapper
 run_sql() {
     echo Running $1
-    # "${SQL_CMD}" -u "${USER}" -p "${PASSWORD}" "${DB_NAME}" < "${SQL_DIR}"/"$1"
     "${SQL_CMD}" -u "${USER}" "${DB_NAME}" < "${SQL_DIR}"/"$1"
 }
-
-# TODO: Check if mysql server is running
 
 # Create database
 echo Creating database ${DB_NAME}

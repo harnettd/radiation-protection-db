@@ -66,12 +66,17 @@ Note that the worker and zone tables each have a primary key (PK) as well as a s
 
 ## Database Implementation and Operation
 
-- setup
-- create daily and monthly reports summarizing RnP, RnG (active) area monitoring
-- create cumulative monthly, quarterly, annual RnP doses for each worker
+This project is hosted at github at https://github.com/harnettd/radiation-protection-db.
+
+In the topmost project directory of the repo is a bash script `setup.sh` which creates a database called `radiation_protection`. The script then runs three SQL scripts, each located in the `sql` directory:
+
+- `create-tables.sql` creates the 17 tables of the logical database design model above.
+- `insert-into-tables.sql` fills the 17 tables with a mix of fabricated and computer-generated random data.
+- `create-views.sql` creates five views for reporting purposes. Each view is discussed in detail below.
+
+The first view is a calibration report which identifies pieces of equipment that are overdue for calibration. The resulting report identifies the pieces of equipment in question and how many days overdue they are for calibration. The view is defined as
 
 ```sql
-DROP VIEW IF EXISTS calibration_report;
 CREATE VIEW calibration_report AS
     SELECT
         eq_ser_num,
@@ -85,10 +90,13 @@ CREATE VIEW calibration_report AS
     ORDER BY days_overdue, eq_cat_name;
 ```
 
+and yields the following results:
+
 ![Overdue calibration report](./images/calibration-report.png)
 
+The second view list pieces of equipment that were involved in one or more sample collections that were declared to be void. This report would be useful in tracking down potentially faulty equipment. The view is defined as 
+
 ```sql
-DROP VIEW IF EXISTS void_equipment;
 CREATE VIEW void_equipment AS
     SELECT
         eq_ser_num,
@@ -103,10 +111,13 @@ CREATE VIEW void_equipment AS
         );
 ```
 
+and yields the following results:
+
 ![Suspect equipment report](./images/suspect-equipment-report.png)
 
+The third view provides summary statistics for each zone, namely average and maximum radon gas concentrations, alpha-emitter concentrations, and gamma dose rates. Zones are identified by both zone_id and a hierarchical triple: site_num, bldg_num, and zone_num. The view is defined as
+
 ```sql
-DROP VIEW IF EXISTS area_summary;
 CREATE VIEW area_summary AS
     SELECT
         COALESCE(arr.zone_id, aar.zone_id, agr.zone_id) AS zone_id,
@@ -129,7 +140,11 @@ CREATE VIEW area_summary AS
     ORDER BY zone_id;
 ```
 
+and yields the following results:
+
 ![Summary statistics by area](./images/area-sample-stats.png)
+
+The fourth view reports the number of days that have passed since each zone was tested for each type of area sample: radon gas, alpha emitter, and gamma dose rate. Again, zones are identified by both a zone_id and a hierarchical triple. Zones are expected to be regularly tested for radioactivity, and this report would help managers plan future testing schedules. The view is defined as
 
 ```sql
 CREATE VIEW area_frequency AS
@@ -149,7 +164,11 @@ CREATE VIEW area_frequency AS
     ORDER BY zone_id, samp_cat_code;
 ```
 
+and yields the following results:
+
 ![Area sampling frequency report](./images/area-frequency-report.png)
+
+The fifth view is perhaps the most important. It produces a report listing each employee along with their year-to-date doses of alpha radiation as measured by PADs, gamma radiation as measured by OSLDs, and total radiation dose. This is the sort of report that would certainly need to be shared with the workers in question, their managers, and the federal government. The view is defined as
 
 ```sql
 CREATE VIEW worker_does AS
@@ -168,6 +187,8 @@ CREATE VIEW worker_does AS
     GROUP BY COALESCE(ppr.worker_id, por.worker_id)
     ORDER BY worker_id;
 ```
+
+and yields the following results:
 
 ![Worker dose report](./images/worker-dose-report.png)
 
