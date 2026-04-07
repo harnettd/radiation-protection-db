@@ -137,7 +137,37 @@ VALUES
     ('2026-03-07 07:30', DATE_ADD('2026-03-07 07:30', INTERVAL 5 MINUTE), FALSE, NULL, 2, 1),
     ('2026-03-13 10:00', DATE_ADD('2026-03-13 10:00', INTERVAL 5 MINUTE), FALSE, NULL, 2, 1),
     ('2026-03-20 13:00', DATE_ADD('2026-03-20 13:00', INTERVAL 5 MINUTE), FALSE, NULL, 2, 1),
-    ('2026-03-28 16:30', DATE_ADD('2026-03-28 16:30', INTERVAL 5 MINUTE), FALSE, NULL, 2, 1);
+    ('2026-03-28 16:30', DATE_ADD('2026-03-28 16:30', INTERVAL 5 MINUTE), FALSE, NULL, 2, 1),
+    ('2026-01-07 08:30', DATE_ADD('2026-01-07 08:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-01-10 10:00', DATE_ADD('2026-01-10 10:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-01-14 11:30', DATE_ADD('2026-01-14 11:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-01-17 13:00', DATE_ADD('2026-01-17 13:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-01-21 14:30', DATE_ADD('2026-01-21 14:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-01-24 16:00', DATE_ADD('2026-01-24 16:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-01-08 09:00', DATE_ADD('2026-01-08 09:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-01-12 11:00', DATE_ADD('2026-01-12 11:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-01-18 13:30', DATE_ADD('2026-01-18 13:30', INTERVAL 5 MINUTE), TRUE, 'Equipment malfunction - gamma meter gave erratic readings', 3, 1),
+    ('2026-01-30 15:30', DATE_ADD('2026-01-30 15:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-02-05 08:00', DATE_ADD('2026-02-05 08:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-02-08 09:30', DATE_ADD('2026-02-08 09:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-02-12 11:00', DATE_ADD('2026-02-12 11:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-02-15 12:30', DATE_ADD('2026-02-15 12:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-02-19 14:00', DATE_ADD('2026-02-19 14:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-02-22 15:30', DATE_ADD('2026-02-22 15:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-02-06 07:30', DATE_ADD('2026-02-06 07:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-02-13 10:00', DATE_ADD('2026-02-13 10:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-02-20 13:00', DATE_ADD('2026-02-20 13:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-02-27 16:00', DATE_ADD('2026-02-27 16:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-03-06 08:00', DATE_ADD('2026-03-06 08:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-03-09 09:30', DATE_ADD('2026-03-09 09:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-03-13 11:00', DATE_ADD('2026-03-13 11:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-03-16 12:30', DATE_ADD('2026-03-16 12:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-03-20 14:00', DATE_ADD('2026-03-20 14:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-03-23 15:30', DATE_ADD('2026-03-23 15:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-03-08 07:30', DATE_ADD('2026-03-08 07:30', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-03-14 10:00', DATE_ADD('2026-03-14 10:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-03-21 13:00', DATE_ADD('2026-03-21 13:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1),
+    ('2026-03-29 16:00', DATE_ADD('2026-03-29 16:00', INTERVAL 5 MINUTE), FALSE, NULL, 3, 1);
 
 INSERT INTO equipment_sample (eq_ser_num, sample_id)
 VALUES
@@ -201,7 +231,37 @@ VALUES
     ('AIR-2020-001', 58), ('ALP-2023-050', 58),
     ('AIR-2020-001', 59), ('ALP-2023-050', 59),
     ('AIR-2020-001', 60), ('ALP-2023-050', 60),
-    ('AIR-2020-001', 61), ('ALP-2023-050', 61);
+    ('AIR-2020-001', 61), ('ALP-2023-050', 61),
+    ('GAM-2026-999', 62),
+    ('GAM-2026-888', 63),
+    ('GAM-2026-999', 64),
+    ('GAM-2026-888', 65),
+    ('GAM-2026-999', 66),
+    ('GAM-2026-888', 67),
+    ('GAM-2026-999', 68),
+    ('GAM-2026-888', 69),
+    ('GAM-2026-999', 70),
+    ('GAM-2026-888', 71),
+    ('GAM-2026-888', 72),
+    ('GAM-2026-999', 73),
+    ('GAM-2026-888', 74),
+    ('GAM-2026-999', 75),
+    ('GAM-2026-888', 76),
+    ('GAM-2026-999', 77),
+    ('GAM-2026-888', 78),
+    ('GAM-2026-999', 79),
+    ('GAM-2026-888', 80),
+    ('GAM-2026-999', 81),
+    ('GAM-2026-999', 82),
+    ('GAM-2026-888', 83),
+    ('GAM-2026-999', 84),
+    ('GAM-2026-888', 85),
+    ('GAM-2026-999', 86),
+    ('GAM-2026-888', 87),
+    ('GAM-2026-999', 88),
+    ('GAM-2026-888', 89),
+    ('GAM-2026-999', 90),
+    ('GAM-2026-888', 91);
 
 INSERT INTO area_radon_result (sample_id, arr_concentration_bq_m3, worker_id, zone_id)
 VALUES
@@ -270,8 +330,38 @@ VALUES
     (60, 520.0, 1, 9),
     (61, 750.0, 2, 10);
 
--- INSERT INTO area_gamma_result (sample_id, agr_dose_rate_usv_hr, worker_id, zone_id)
--- VALUES ();
+INSERT INTO area_gamma_result (sample_id, agr_dose_rate_usv_hr, worker_id, zone_id)
+VALUES 
+    (62, 1.25, 1, 1),
+    (63, 3.80, 2, 2),
+    (64, 6.50, 3, 3),
+    (65, 0.85, 1, 4),
+    (66, 4.20, 2, 5),
+    (67, 2.10, 3, 6),
+    (68, 8.90, 1, 7),
+    (69, 2.75, 2, 8),
+    (70, 999.99, 3, 9),  -- VOID
+    (71, 1.45, 1, 10),
+    (72, 1.60, 1, 1),
+    (73, 4.10, 2, 2),
+    (74, 7.20, 3, 3),
+    (75, 1.05, 1, 4),
+    (76, 4.80, 2, 5),
+    (77, 2.40, 3, 6),
+    (78, 9.50, 1, 7),
+    (79, 2.20, 2, 8),
+    (80, 5.10, 3, 9),
+    (81, 1.80, 1, 10),
+    (82, 1.40, 2, 1),
+    (83, 3.95, 3, 2),
+    (84, 6.80, 1, 3),
+    (85, 0.92, 2, 4),
+    (86, 4.50, 3, 5),
+    (87, 2.25, 1, 6),
+    (88, 8.20, 2, 7),
+    (89, 2.90, 3, 8),
+    (90, 5.60, 1, 9),
+    (91, 7.30, 2, 10);
 
 -- INSERT INTO person_drd_result (sample_id, drd_dose_usv, worker_id)
 -- VALUES ();

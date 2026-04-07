@@ -41,37 +41,40 @@ CREATE VIEW void_equipment AS
 DROP VIEW IF EXISTS area_summary;
 CREATE VIEW area_summary AS
     SELECT
-        COALESCE(arr.zone_id, aar.zone_id) AS zone_id,
+        COALESCE(arr.zone_id, aar.zone_id, agr.zone_id) AS zone_id,
         site_num, bldg_num, zone_num,
-        ROUND(AVG(arr_concentration_bq_m3), 1) AS avg_radon_concentration,
-        ROUND(MAX(arr_concentration_bq_m3), 1) AS max_radon_concentration,
-        ROUND(AVG(aar_concentration_bq_m3), 1) AS avg_alpha_concentration,
-        ROUND(MAX(aar_concentration_bq_m3), 1) AS max_alpha_concentration
+        ROUND(AVG(arr_concentration_bq_m3), 1) AS avg_radon,
+        ROUND(MAX(arr_concentration_bq_m3), 1) AS max_radon,
+        ROUND(AVG(aar_concentration_bq_m3), 1) AS avg_alpha,
+        ROUND(MAX(aar_concentration_bq_m3), 1) AS max_alpha,
+        ROUND(AVG(agr_dose_rate_usv_hr), 1) AS avg_gamma,
+        ROUND(MAX(agr_dose_rate_usv_hr), 1) AS max_gamma
     FROM sample LEFT JOIN
         area_radon_result arr USING (sample_id) LEFT JOIN
-        area_alpha_result aar USING (sample_id) JOIN
-        zone ON COALESCE(arr.zone_id, aar.zone_id) = zone.zone_id
+        area_alpha_result aar USING (sample_id) LEFT JOIN
+        area_gamma_result agr USING (sample_id) JOIN
+        zone ON COALESCE(arr.zone_id, aar.zone_id, agr.zone_id) = zone.zone_id
     WHERE sample_is_void = FALSE AND
         samp_cat_code IN (1, 2, 3)
     GROUP BY 
-        COALESCE(arr.zone_id, aar.zone_id)
+        COALESCE(arr.zone_id, aar.zone_id, agr.zone_id)
     ORDER BY zone_id;
-
 
 -- Generate a report showing how many days have passed since each type of
 -- area-sample has been taken for each zone.
 DROP VIEW IF EXISTS area_frequency;
 CREATE VIEW area_frequency AS
     SELECT
-        COALESCE(arr.zone_id, aar.zone_id) as zone_id,
+        COALESCE(arr.zone_id, aar.zone_id, agr.zone_id) as zone_id,
         site_num, bldg_num, zone_num,
         samp_cat_name,
         MIN(DATEDIFF(CURRENT_DATE, DATE(sample_start))) AS days_since
     FROM sample LEFT JOIN
         area_radon_result arr USING (sample_id) LEFT JOIN
-        area_alpha_result aar USING (sample_id) JOIN
+        area_alpha_result aar USING (sample_id) LEFT JOIN
+        area_gamma_result agr USING (sample_id) JOIN
         sample_category USING (samp_cat_code) JOIN
-        zone ON COALESCE(arr.zone_id, aar.zone_id) = zone.zone_id
+        zone ON COALESCE(arr.zone_id, aar.zone_id, agr.zone_id) = zone.zone_id
     WHERE sample_is_void = FALSE
-    GROUP BY COALESCE(arr.zone_id, aar.zone_id), samp_cat_code
+    GROUP BY COALESCE(arr.zone_id, aar.zone_id, agr.zone_id), samp_cat_code
     ORDER BY zone_id, samp_cat_code;

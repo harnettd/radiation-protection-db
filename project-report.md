@@ -7,6 +7,7 @@
 - [Conceptual Database Design Model](#conceptual%20database%20design%20model)
 - [Logical Database Design Model](#logical%20database%20design%20model)
 - [Normalization](#normalization)
+- [Database Implementation and Operation](#database%20implementation%20and%20operation)
 
 ## Introduction
 
@@ -69,7 +70,86 @@ Note that the worker and zone tables each have a primary key (PK) as well as a s
 - create daily and monthly reports summarizing RnP, RnG (active) area monitoring
 - create cumulative monthly, quarterly, annual RnP doses for each worker
 
+```sql
+DROP VIEW IF EXISTS calibration_report;
+CREATE VIEW calibration_report AS
+    SELECT
+        eq_ser_num,
+        eq_make,
+        eq_model,
+        eq_cat_name,
+        ABS(DATEDIFF(eq_next_cal_date, CURRENT_DATE)) AS days_overdue
+    FROM equipment JOIN
+        equipment_category USING (eq_cat_code)
+    WHERE DATEDIFF(eq_next_cal_date, CURRENT_DATE) < 0
+    ORDER BY days_overdue, eq_cat_name;
+```
+
 ![Overdue calibration report](./images/calibration_report.png)
+
+```sql
+DROP VIEW IF EXISTS void_equipment;
+CREATE VIEW void_equipment AS
+    SELECT
+        eq_ser_num,
+        eq_make,
+        eq_model
+    FROM equipment
+    WHERE eq_ser_num IN (
+        SELECT DISTINCT eq_ser_num
+        FROM sample JOIN
+            equipment_sample USING (sample_id)
+        WHERE sample_is_void = TRUE
+        );
+```
+
+![Suspect equipment report](./images/suspect-equipment-report.png)
+
+```sql
+DROP VIEW IF EXISTS area_summary;
+CREATE VIEW area_summary AS
+    SELECT
+        COALESCE(arr.zone_id, aar.zone_id, agr.zone_id) AS zone_id,
+        site_num, bldg_num, zone_num,
+        ROUND(AVG(arr_concentration_bq_m3), 1) AS avg_radon,
+        ROUND(MAX(arr_concentration_bq_m3), 1) AS max_radon,
+        ROUND(AVG(aar_concentration_bq_m3), 1) AS avg_alpha,
+        ROUND(MAX(aar_concentration_bq_m3), 1) AS max_alpha,
+        ROUND(AVG(agr_dose_rate_usv_hr), 1) AS avg_gamma,
+        ROUND(MAX(agr_dose_rate_usv_hr), 1) AS max_gamma
+    FROM sample LEFT JOIN
+        area_radon_result arr USING (sample_id) LEFT JOIN
+        area_alpha_result aar USING (sample_id) LEFT JOIN
+        area_gamma_result agr USING (sample_id) JOIN
+        zone ON COALESCE(arr.zone_id, aar.zone_id, agr.zone_id) = zone.zone_id
+    WHERE sample_is_void = FALSE AND
+        samp_cat_code IN (1, 2, 3)
+    GROUP BY 
+        COALESCE(arr.zone_id, aar.zone_id, agr.zone_id)
+    ORDER BY zone_id;
+```
+
+![Summary statistics by area](./images/area-sample-stats.png)
+
+```sql
+CREATE VIEW area_frequency AS
+    SELECT
+        COALESCE(arr.zone_id, aar.zone_id, agr.zone_id) as zone_id,
+        site_num, bldg_num, zone_num,
+        samp_cat_name,
+        MIN(DATEDIFF(CURRENT_DATE, DATE(sample_start))) AS days_since
+    FROM sample LEFT JOIN
+        area_radon_result arr USING (sample_id) LEFT JOIN
+        area_alpha_result aar USING (sample_id) LEFT JOIN
+        area_gamma_result agr USING (sample_id) JOIN
+        sample_category USING (samp_cat_code) JOIN
+        zone ON COALESCE(arr.zone_id, aar.zone_id, agr.zone_id) = zone.zone_id
+    WHERE sample_is_void = FALSE
+    GROUP BY COALESCE(arr.zone_id, aar.zone_id, agr.zone_id), samp_cat_code
+    ORDER BY zone_id, samp_cat_code;
+```
+
+![Area sampling frequency report](./images/area-frequency-report.png)
 
 ## Discussion
 
