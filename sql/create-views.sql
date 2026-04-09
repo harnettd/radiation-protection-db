@@ -93,7 +93,7 @@ CREATE VIEW worker_dose AS
         person_pad_result ppr USING (sample_id) LEFT JOIN
         person_osld_result por USING (sample_id) JOIN
         worker w ON COALESCE(ppr.worker_id, por.worker_id) = w.worker_id
-    WHERE samp_cat_code IN (4, 5, 6) AND
+    WHERE samp_cat_code IN (5, 6) AND
         EXTRACT(YEAR FROM sample_start) = EXTRACT(YEAR FROM CURRENT_DATE)
     GROUP BY COALESCE(ppr.worker_id, por.worker_id)
     ORDER BY worker_id;
